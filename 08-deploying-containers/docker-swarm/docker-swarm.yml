@@ -1,7 +1,6 @@
-version: '3.7'
 services:
   client-react-nginx:
-    image: sidpalas/devops-directive-docker-course-client-react-nginx:5
+    image: ashishkhanagwal/docker-web-app-client-react-nginx:5
     deploy:
       mode: replicated
       replicas: 1
@@ -19,7 +18,7 @@ services:
       retries: 3
       start_period: 10s
   api-node:
-    image: sidpalas/devops-directive-docker-course-api-node:9
+    image: ashishkhanagwal/docker-web-app-api-node:9
     read_only: true
     deploy:
       mode: replicated
@@ -41,7 +40,7 @@ services:
       retries: 3
       start_period: 10s
   api-golang:
-    image: sidpalas/devops-directive-docker-course-api-golang:8
+    image: ashishkhanagwal/docker-web-app-api-golang:8
     read_only: true
     deploy:
       mode: replicated
