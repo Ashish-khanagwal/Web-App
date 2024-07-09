@@ -14,8 +14,8 @@ compose-down:
 	docker compose -f docker-compose-prod.yml down
 
 ### DOCKER SWARM
-VM_IP?=137.184.65.178
-DOCKER_HOST:="ssh://root@${VM_IP}"
+VM_IP?=212.2.244.44
+DOCKER_HOST:="ssh://ubuntu@${VM_IP}"
 
 .PHONY: swarm-init
 swarm-init:
