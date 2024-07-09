@@ -1,39 +1,35 @@
+version: "3.7"
 services:
   client-react-nginx:
-    image: ashishkhanagwal/docker-web-app-client-react-nginx:5
-    # labels:
-    #   shipyard.primary-route: true
-    #   shipyard.route: "/"
+    image: ashishkhanagwal/web-app-client-react-nginx:5
     init: true
     networks:
       - frontend
     ports:
       - 80:8080
   api-node:
-    image: ashishkhanagwal/docker-web-app-api-node:9
-    # labels:
-    #   shipyard.route: "/api/node/"
-    #   shipyard.route.rewrite: true
+    image: ashishkhanagwal/web-app-api-node:9
     init: true
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://postgres:foobarbaz@db:5432/postgres
+      - DATABASE_URL_FILE=/run/secrets/database-url
+    secrets:
+      - database-url
     networks:
       - frontend
       - backend
     ports:
       - 3000:3000
   api-golang:
-    image: ashishkhanagwal/docker-web-app-api-golang:8
-    # labels:
-    #   shipyard.route: "/api/golang/"
-    #   shipyard.route.rewrite: true
+    image: ashishkhanagwal/web-app-api-golang:8
     init: true
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgres://postgres:foobarbaz@db:5432/postgres
+      - DATABASE_URL_FILE=/run/secrets/database-url
+    secrets:
+      - database-url
     networks:
       - frontend
       - backend
@@ -44,7 +40,10 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=foobarbaz
+      - PGUSER=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgres-passwd
+    secrets:
+      - postgres-passwd
     networks:
       - backend
     ports:
@@ -54,3 +53,8 @@ volumes:
 networks:
   frontend:
   backend:
+secrets:
+  database-url:
+    external: true
+  postgres-passwd:
+    external: true

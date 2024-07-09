@@ -1,5 +1,5 @@
-API_NODE_PATH:=../../05-example-web-application/client-react/
-DOCKERHUB_REPO:=sidpalas/devops-directive-docker-course-client-react-nginx
+API_NODE_PATH:=../../01-Web-App/client-react/
+DOCKERHUB_REPO:=ashishkhanagwal/web-app-client-react-nginx
 
 N?=0
 .PHONY: build-N
